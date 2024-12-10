@@ -1,0 +1,45 @@
+//Input: s = "aaaa"
+//Output: 2
+//Explanation: The longest special substring which occurs thrice is "aa": substrings "aaaa", "aaaa", and "aaaa".
+//It can be shown that the maximum length achievable is 2.
+//Input: s = "abcdef"
+//Output: -1
+//Explanation: There exists no special substring which occurs at least thrice. Hence return -1.
+
+class Solution {
+public:
+    int maximumLength(string s) {
+        int n = s.length() , max_len = -1;
+
+        for(int i = 1; i <= n; i++)
+        {
+            map<string, int> mp;
+
+            for(int j = 0; j <= n - i; j++)
+            {
+            string sub = s.substr(j,i);
+
+            bool isSpl = true;
+
+            for(int k = 1; k <i; k++)
+            {
+                if(sub[k] != sub[0])
+                {
+                    isSpl = false;
+                    break;
+                }
+            }
+
+            if(isSpl)
+            {
+                mp[sub]++;
+                if(mp[sub] >= 3)
+                {
+                    max_len = max(max_len, i);
+                }
+            }
+            }
+        }
+        return max_len;
+    }
+};
